@@ -1,0 +1,26 @@
+services:
+
+  app:
+      build: .
+      container_name: video-catalog-api
+      volumes:
+          - .:/var/www
+          - ./.docker/php/custom.ini:/usr/local/etc/php/conf.d/custom.ini
+      networks:
+          - video-catalog-network
+
+  nginx:
+    build: .docker/nginx
+    container_name: video-catalog-nginx
+    ports:
+        - "8000:80"
+    volumes:
+        - .:/var/www
+    networks:
+        - video-catalog-network
+    depends_on:
+        - app
+
+networks:
+  video-catalog-network:
+    driver: bridge
