@@ -2,7 +2,7 @@
 
 require_once '../vendor/autoload.php';
 
-use Core\Teste;
+use Core\Product;
 
-$teste = new Teste();
+$teste = new Product();
 var_dump($teste->foo());

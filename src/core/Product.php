@@ -2,10 +2,10 @@
 
 namespace Core;
 
-class Teste
+class Product
 {
     public function foo()
     {
-        return '123';
+        return 'O produto custa 123';
     }
 }

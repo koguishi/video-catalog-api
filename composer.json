@@ -1,6 +1,7 @@
 {
     "name": "kgsh/video-catalog-api",
     "description": "Video Catalog - API with PHP",
+    "version": "1.0.0",
     "authors": [
         {
             "name": "Edson Koguishi",
@@ -12,5 +13,8 @@
             "Core\\": "src/core/"
         }
     },
-    "require": {}
+    "require-dev": {
+        "phpunit/phpunit": "^10.5",
+        "mockery/mockery": "^1.6"
+    }
 }
