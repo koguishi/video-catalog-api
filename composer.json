@@ -1,0 +1,16 @@
+{
+    "name": "kgsh/video-catalog-api",
+    "description": "Video Catalog - API with PHP",
+    "authors": [
+        {
+            "name": "Edson Koguishi",
+            "email": "edsonkoguishi@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Core\\": "src/core/"
+        }
+    },
+    "require": {}
+}
