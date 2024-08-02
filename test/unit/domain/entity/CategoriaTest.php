@@ -22,6 +22,19 @@ class CategoriaTest extends TestCase
         $this->assertEquals($categoria->ativo, true);
     }
 
+    public function testCriarCategoriaApenasComNome()
+    {
+        $nome = 'treinos de kata';
+
+        $categoria = new Categoria(
+            nome: $nome,
+        );
+
+        $this->assertEquals($categoria->nome, $nome);
+        $this->assertEquals($categoria->descricao, '');
+        $this->assertEquals($categoria->ativo, true);
+    }
+
     public function testDesativarCategoria()
     {
         $nome = 'treinos de kata';
