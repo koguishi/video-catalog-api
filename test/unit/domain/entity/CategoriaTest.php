@@ -11,16 +11,48 @@ class CategoriaTest extends TestCase
     {
         $nome = 'treinos de kata';
         $descricao = 'videos sobre treinos de kata';
-        $ativo = true;
 
         $categoria = new Categoria(
             nome: $nome,
             descricao: $descricao,
-            ativo: $ativo
         );
 
         $this->assertEquals($categoria->nome, $nome);
         $this->assertEquals($categoria->descricao, $descricao);
-        $this->assertEquals($categoria->ativo, $ativo);
+        $this->assertEquals($categoria->ativo, true);
     }
+
+    public function testDesativarCategoria()
+    {
+        $nome = 'treinos de kata';
+        $descricao = 'videos sobre treinos de kata';
+
+        $categoria = new Categoria(
+            nome: $nome,
+            descricao: $descricao
+        );
+
+        $categoria->desativar();
+
+        $this->assertEquals($categoria->nome, $nome);
+        $this->assertEquals($categoria->descricao, $descricao);
+        $this->assertEquals($categoria->ativo, false);
+    }
+
+    public function testAtivarCategoria()
+    {
+        $nome = 'treinos de kata';
+        $descricao = 'videos sobre treinos de kata';
+
+        $categoria = new Categoria(
+            nome: $nome,
+            descricao: $descricao,
+            ativo: false
+        );
+
+        $categoria->ativar();
+
+        $this->assertEquals($categoria->ativo, true);
+    }
+
 }

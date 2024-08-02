@@ -13,4 +13,14 @@ class Categoria
         protected string $descricao = '',
         protected bool $ativo = true,
     ) { }
+
+    public function desativar()
+    {
+        $this->ativo = false;
+    }
+
+    public function ativar()
+    {
+        $this->ativo = true;
+    }
 }
