@@ -10,7 +10,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "Core\\": "src/core/"
+            "core\\": "src/core/"
         }
     },
     "require-dev": {
