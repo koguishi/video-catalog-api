@@ -19,7 +19,7 @@ class CategoriaTest extends TestCase
 
         $this->assertEquals($categoria->nome, $nome);
         $this->assertEquals($categoria->descricao, $descricao);
-        $this->assertEquals($categoria->ativo, true);
+        $this->assertTrue($categoria->ativo);
     }
 
     public function testCriarCategoriaApenasComNome()
@@ -32,7 +32,7 @@ class CategoriaTest extends TestCase
 
         $this->assertEquals($categoria->nome, $nome);
         $this->assertEquals($categoria->descricao, '');
-        $this->assertEquals($categoria->ativo, true);
+        $this->assertTrue($categoria->ativo);
     }
 
     public function testDesativarCategoria()
@@ -49,7 +49,7 @@ class CategoriaTest extends TestCase
 
         $this->assertEquals($categoria->nome, $nome);
         $this->assertEquals($categoria->descricao, $descricao);
-        $this->assertEquals($categoria->ativo, false);
+        $this->assertFalse($categoria->ativo);
     }
 
     public function testAtivarCategoria()
@@ -65,7 +65,7 @@ class CategoriaTest extends TestCase
 
         $categoria->ativar();
 
-        $this->assertEquals($categoria->ativo, true);
+        $this->assertTrue($categoria->ativo);
     }
 
 }
