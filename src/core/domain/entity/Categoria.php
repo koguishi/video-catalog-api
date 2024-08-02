@@ -23,4 +23,13 @@ class Categoria
     {
         $this->ativo = true;
     }
+
+    public function alterar(
+        string $nome,
+        string $descricao = null,
+    )
+    {
+        $this->nome = $nome;
+        $this->descricao = $descricao ?? $this->descricao;
+    }
 }

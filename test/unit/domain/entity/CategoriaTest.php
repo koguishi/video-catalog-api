@@ -68,4 +68,41 @@ class CategoriaTest extends TestCase
         $this->assertTrue($categoria->ativo);
     }
 
+    public function testAlterarCategoria()
+    {
+        $categoria = new Categoria(
+            nome: 'nome inicial',
+            descricao: 'descricao inicial'
+        );
+        $nome = 'treinos de kata';
+        $descricao = 'videos sobre treinos de kata';
+
+        $categoria->alterar(
+            nome: $nome,
+            descricao: $descricao,
+        );
+
+        $this->assertEquals($categoria->nome, $nome);
+        $this->assertEquals($categoria->descricao, $descricao);
+        $this->assertTrue($categoria->ativo);
+    }
+
+    public function testAlterarCategoriaApenasNome()
+    {
+        $descricao = 'videos sobre treinos de kata';
+        $categoria = new Categoria(
+            nome: 'nome inicial',
+            descricao: $descricao
+        );
+        $nome = 'treinos de kata';
+
+        $categoria->alterar(
+            nome: $nome
+        );
+
+        $this->assertEquals($categoria->nome, $nome);
+        $this->assertEquals($categoria->descricao, $descricao);
+        $this->assertTrue($categoria->ativo);
+    }
+
 }
