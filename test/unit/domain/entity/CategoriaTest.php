@@ -145,20 +145,6 @@ class CategoriaTest extends TestCase
         }
     }
 
-    public function testExceptionDescricaoMenorQue3()
-    {
-        try {
-            new Categoria(
-                nome: 'Name Cat',
-                descricao: 'AA'
-            );
-
-            $this->assertTrue(false);
-        } catch (\Throwable $th) {
-            $this->assertInstanceOf(EntityValidationException::class, $th);
-        }
-    }
-
     public function testExceptionDescricaoMaiorQue255()
     {
         try {

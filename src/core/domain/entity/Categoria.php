@@ -3,7 +3,7 @@
 namespace core\domain\entity;
 
 use core\domain\entity\traits\MagicMethodsTrait;
-use core\domain\exception\EntityValidationException;
+use core\domain\validation\DomainValidation;
 
 class Categoria
 {
@@ -20,17 +20,12 @@ class Categoria
 
     private function validate()
     {
-        if (empty($this->nome)) {
-            throw new EntityValidationException("Nome inválido");
-        }
-
-        if (!empty($this->nome) && (strlen($this->nome) < 3 || strlen($this->nome) > 100)) {
-            throw new EntityValidationException("Nome inválido");
-        }
-
-        if (!empty($this->descricao) && (strlen($this->descricao) < 3 || strlen($this->descricao) > 255)) {
-            throw new EntityValidationException("Nome inválido");
-        }
+        $nomeMinLen = 3;
+        DomainValidation::strMinLen($this->nome, $nomeMinLen, 'Nome deve ter no mínimo {$nomeMinLen} caracteres');
+        $nomeMaxLen = 100;
+        DomainValidation::strMaxLen($this->nome, $nomeMaxLen, 'Nome deve ter no máximo {$nomeMaxLen} caracteres');
+        $descricaoMaxLen = 255;
+        DomainValidation::strCanNullButMaxLen($this->descricao, $descricaoMaxLen, 'Descrição deve ter no máximo {$descricaoMaxLen} caracteres');
     }
 
     public function desativar()
