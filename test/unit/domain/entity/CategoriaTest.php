@@ -109,7 +109,7 @@ class CategoriaTest extends TestCase
     public function testExceptionNomeVazio()
     {
         try {
-            $categoria = new Categoria(
+            new Categoria(
                 nome: '',
             );
 
@@ -122,7 +122,7 @@ class CategoriaTest extends TestCase
     public function testExceptionNomeMenorQue3()
     {
         try {
-            $categoria = new Categoria(
+            new Categoria(
                 nome: 'AA',
             );
 
