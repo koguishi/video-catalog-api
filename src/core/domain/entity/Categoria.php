@@ -3,6 +3,7 @@
 namespace core\domain\entity;
 
 use core\domain\entity\traits\MagicMethodsTrait;
+use core\domain\exception\EntityValidationException;
 
 class Categoria
 {
@@ -12,7 +13,25 @@ class Categoria
         protected string $nome,
         protected string $descricao = '',
         protected bool $ativo = true,
-    ) { }
+    )
+    {
+        $this->validate();
+    }
+
+    private function validate()
+    {
+        if (empty($this->nome)) {
+            throw new EntityValidationException("Nome inválido");
+        }
+
+        if (!empty($this->nome) && (strlen($this->nome) < 3 || strlen($this->nome) > 100)) {
+            throw new EntityValidationException("Nome inválido");
+        }
+
+        if (!empty($this->descricao) && (strlen($this->descricao) < 3 || strlen($this->descricao) > 255)) {
+            throw new EntityValidationException("Nome inválido");
+        }
+    }
 
     public function desativar()
     {
@@ -31,5 +50,7 @@ class Categoria
     {
         $this->nome = $nome;
         $this->descricao = $descricao ?? $this->descricao;
+
+        $this->validate();
     }
 }
