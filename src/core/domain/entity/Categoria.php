@@ -4,17 +4,23 @@ namespace core\domain\entity;
 
 use core\domain\entity\traits\MagicMethodsTrait;
 use core\domain\validation\DomainValidation;
+use core\domain\valueobject\Uuid;
+use DateTime;
 
 class Categoria
 {
     use MagicMethodsTrait;
 
     public function __construct(
-        protected string $nome,
+        protected Uuid|string $id = '',
+        protected string $nome = '',
         protected string $descricao = '',
         protected bool $ativo = true,
+        protected DateTime|string $criadoEm = '',
     )
     {
+        $this->id = $this->id ? new Uuid($this->id) : Uuid::random();
+        $this->criadoEm = $this->criadoEm ? new DateTime($this->criadoEm) : new DateTime();
         $this->validate();
     }
 
