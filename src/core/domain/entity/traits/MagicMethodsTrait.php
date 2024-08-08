@@ -21,8 +21,8 @@ trait MagicMethodsTrait
         return (string) $this->id;
     }
 
-    public function createdAt(): string
+    public function criadoEm(): string
     {
-        return $this->createdAt->format('Y-m-d H:i:s');
+        return $this->criadoEm->format('Y-m-d H:i:s');
     }
 }

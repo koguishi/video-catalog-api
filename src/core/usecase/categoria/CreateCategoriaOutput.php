@@ -9,6 +9,6 @@ class CreateCategoriaOutput
         public string $nome,
         public string $descricao = '',
         public bool $ativo = true,
-        public string $criado_em = ''
+        public string $criadoEm = ''
     ) { }
 }
