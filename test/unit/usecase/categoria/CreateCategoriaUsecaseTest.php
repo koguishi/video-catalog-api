@@ -9,25 +9,31 @@ use core\usecase\categoria\CreateCategoriaOutput;
 use core\usecase\categoria\CreateCategoriaUsecase;
 use Mockery;
 use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\Uuid;
 use stdClass;
 
 class CreateCategoriaUsecaseTest extends TestCase
 {
     public function testCreateCategoria()
     {
-        $id = '1';
+        $id = (string) Uuid::uuid4()->toString();
         $nome = 'categoria A';
-        $mockCategoria = Mockery::mock(
-            Categoria::class,
-            [ $nome ],
-        );
-        $mockCategoria->shouldReceive('id')->andReturn($id);
+        $descricao = 'descrição da categoria A';
+        $ativo = false;
+
+        $categoria = new Categoria($id, $nome, $descricao, $ativo);
+        var_dump($categoria);
+        // $mockCategoria = Mockery::mock(
+        //     Categoria::class,
+        //     [ $id, $nome, $descricao ],
+        // );
+        // $mockCategoria->shouldReceive('id')->andReturn($id);
 
         $mockRepo = Mockery::mock(
             stdClass::class,
             CategoriaRepositoryInterface::class,
         );
-        $mockRepo->shouldReceive('create')->andReturn($mockCategoria);
+        $mockRepo->shouldReceive('create')->andReturn($categoria);
 
         $input = new CreateCategoriaInput(nome: $nome);
 
@@ -35,8 +41,11 @@ class CreateCategoriaUsecaseTest extends TestCase
         $response = $usecase->execute($input);
 
         $this->assertInstanceOf(CreateCategoriaOutput::class, $response);
-        $this->assertEquals($nome, $response->nome);
-        $this->assertEquals('', $response->descricao);
+        $this->assertEquals($response->id, $id);
+        $this->assertEquals($response->nome, $nome);
+        $this->assertEquals($response->descricao, $descricao);
+        $this->assertEquals($response->ativo, $ativo);
+        $this->assertNotEmpty($response->criadoEm);
 
         Mockery::close();
     }

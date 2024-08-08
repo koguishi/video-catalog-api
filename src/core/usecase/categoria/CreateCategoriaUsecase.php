@@ -26,10 +26,10 @@ class CreateCategoriaUsecase
 
         return new CreateCategoriaOutput(
             id: $categoriaCriada->id(),
-            nome: $input->nome,
-            descricao: $input->descricao,
-            ativo: $input->ativo,
-            // criado_em: $categoriaCriada->criado_em
+            nome: $categoriaCriada->nome,
+            descricao: $categoriaCriada->descricao,
+            ativo: $categoriaCriada->ativo,
+            criadoEm: $categoriaCriada->criadoEm(),
         );
     }
 }
