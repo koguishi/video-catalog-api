@@ -55,6 +55,7 @@ class UpdateCategoriaUsecaseTest extends TestCase
 
         $this->assertInstanceOf(UpdateCategoriaOutput::class, $response);
         $this->assertEquals($response->nome, $mockInputDto->nome);
+        $this->assertEquals($response->descricao, $mockInputDto->descricao);
 
     }
 }
