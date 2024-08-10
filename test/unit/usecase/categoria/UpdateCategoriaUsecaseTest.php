@@ -20,42 +20,119 @@ class UpdateCategoriaUsecaseTest extends TestCase
         Mockery::close();
     }
 
-    // private $mockEntity;
-
     public function testUpdateCategoria()
     {
         $uuid = (string) Uuid::uuid4()->toString();
-        $nome = 'Name';
-        $descricao = 'Desc';
 
-        $mockEntity = Mockery::mock(Categoria::class, [
-            $uuid, $nome, $descricao,
-        ]);
-        $mockEntity->shouldReceive('alterar');
-        $mockEntity->shouldReceive('id')->andReturn($uuid);
-        $mockEntity->shouldReceive('criadoEm')->andReturn(date('Y-m-d H:i:s'));
+        $categoriaBD = new Categoria(
+            id: $uuid,
+            nome: 'Nome AAA',
+            descricao: 'Descricao AAA',
+            ativo: true,
+        );
+        $categoriaAlterada = new Categoria(
+            id: $uuid,
+            nome: 'Nome BBB',
+            descricao: 'Descricao BBB',
+            ativo: false,
+        );
 
         /**
          * @var CategoriaRepositoryInterface|MockInterface $mockRepo
          */
         $mockRepo = Mockery::mock(stdClass::class, CategoriaRepositoryInterface::class);
-        $mockRepo->shouldReceive('read')->andReturn($mockEntity);
-        $mockRepo->shouldReceive('update')->andReturn($mockEntity);
+        $mockRepo->shouldReceive('read')->andReturn($categoriaBD);
+        $mockRepo->shouldReceive('update')->andReturn($categoriaAlterada);
 
-        /**
-         * @var UpdateCategoriaInput|MockInterface $mockInputDto
-         */
-        $mockInputDto = Mockery::mock(UpdateCategoriaInput::class, [
-            $uuid,
-            'new name',
-        ]);
+        $input = new UpdateCategoriaInput(
+            id: $categoriaAlterada->id(),
+            nome: $categoriaAlterada->nome,
+            descricao: $categoriaAlterada->descricao,
+            ativo: $categoriaAlterada->ativo,
+        );
 
         $useCase = new UpdateCategoriaUsecase($mockRepo);
-        $response = $useCase->execute($mockInputDto);
+        $response = $useCase->execute($input);
 
         $this->assertInstanceOf(UpdateCategoriaOutput::class, $response);
-        $this->assertEquals($response->nome, $mockInputDto->nome);
-        $this->assertEquals($response->descricao, $mockInputDto->descricao);
+        $this->assertEquals($input->nome, $response->nome);
+        $this->assertEquals($input->descricao, $response->descricao);
+        $this->assertEquals($input->ativo, $response->ativo);
+    }
 
+    public function testUpdateCategoriaSomenteNome()
+    {
+        $uuid = (string) Uuid::uuid4()->toString();
+
+        $categoriaBD = new Categoria(
+            id: $uuid,
+            nome: 'Nome AAA',
+            descricao: 'Descricao AAA',
+            ativo: false,
+        );
+        $categoriaAlterada = new Categoria(
+            id: $uuid,
+            nome: 'Nome BBB',
+            descricao: 'Descricao AAA',
+            ativo: false,
+        );
+
+        /**
+         * @var CategoriaRepositoryInterface|MockInterface $mockRepo
+         */
+        $mockRepo = Mockery::mock(stdClass::class, CategoriaRepositoryInterface::class);
+        $mockRepo->shouldReceive('read')->andReturn($categoriaBD);
+        $mockRepo->shouldReceive('update')->andReturn($categoriaAlterada);
+
+        $input = new UpdateCategoriaInput(
+            id: $categoriaAlterada->id(),
+            nome: $categoriaAlterada->nome,
+        );
+
+        $useCase = new UpdateCategoriaUsecase($mockRepo);
+        $response = $useCase->execute($input);
+
+        $this->assertInstanceOf(UpdateCategoriaOutput::class, $response);
+        $this->assertEquals($response->nome, $input->nome);
+        $this->assertEquals($response->descricao, $categoriaBD->descricao);
+        $this->assertEquals($response->ativo, $categoriaBD->ativo);
+    }
+
+    public function testUpdateCategoriaSomenteDescricao()
+    {
+        $uuid = (string) Uuid::uuid4()->toString();
+
+        $categoriaBD = new Categoria(
+            id: $uuid,
+            nome: 'Nome AAA',
+            descricao: 'Descricao AAA',
+            ativo: false,
+        );
+        $categoriaAlterada = new Categoria(
+            id: $uuid,
+            nome: 'Nome AAA',
+            descricao: 'Descricao BBB',
+            ativo: false,
+        );
+
+        /**
+         * @var CategoriaRepositoryInterface|MockInterface $mockRepo
+         */
+        $mockRepo = Mockery::mock(stdClass::class, CategoriaRepositoryInterface::class);
+        $mockRepo->shouldReceive('read')->andReturn($categoriaBD);
+        $mockRepo->shouldReceive('update')->andReturn($categoriaAlterada);
+
+        $input = new UpdateCategoriaInput(
+            id: $categoriaAlterada->id(),
+            descricao: $categoriaAlterada->descricao,
+        );
+
+        $useCase = new UpdateCategoriaUsecase($mockRepo);
+        $response = $useCase->execute($input);
+
+        $this->assertInstanceOf(UpdateCategoriaOutput::class, $response);
+        $this->assertEquals($response->nome, $categoriaBD->nome);
+        $this->assertEquals($response->descricao, $input->descricao);
+        $this->assertEquals($response->ativo, $categoriaBD->ativo);
     }
 }

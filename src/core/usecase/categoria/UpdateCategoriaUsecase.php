@@ -2,7 +2,6 @@
 
 namespace core\usecase\categoria;
 
-use core\domain\entity\Categoria;
 use core\domain\repository\CategoriaRepositoryInterface;
 
 class UpdateCategoriaUsecase
@@ -22,6 +21,10 @@ class UpdateCategoriaUsecase
             nome: $input->nome ?? $categoria->nome,
             descricao: $input->descricao ?? $categoria->descricao
         );
+        if (isset($input->ativo))
+        {
+            $input->ativo ? $categoria->ativar() : $categoria->desativar();
+        }
 
         $categoriaAlterada = $this->repository->update($categoria);
 

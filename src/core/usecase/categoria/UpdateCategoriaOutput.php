@@ -7,8 +7,8 @@ class UpdateCategoriaOutput
     public function __construct(
         public string $id,
         public string $nome,
-        public string $descricao = '',
-        public bool $ativo = true,
+        public ?string $descricao = null,
+        public ?bool $ativo = null,
         public string $criadoEm = ''
     ) { }
 }
