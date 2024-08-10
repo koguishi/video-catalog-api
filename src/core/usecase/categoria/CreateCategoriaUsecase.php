@@ -18,8 +18,8 @@ class CreateCategoriaUsecase
     {
         $categoria = new Categoria(
             nome: $input->nome,
-            descricao: $input->descricao,
-            ativo: $input->ativo,
+            descricao: $input->descricao ?? '',
+            ativo: $input->ativo ?? true,
         );
         
         $categoriaCriada = $this->repository->create($categoria);

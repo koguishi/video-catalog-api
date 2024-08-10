@@ -6,7 +6,7 @@ class CreateCategoriaInput
 {
     public function __construct(
         public string $nome,
-        public string $descricao = '',
-        public bool $ativo = true
+        public ?string $descricao = null,
+        public ?bool $ativo = null,
     ) { }
 }
