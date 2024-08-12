@@ -54,6 +54,7 @@ class UpdateCategoriaUsecaseTest extends TestCase
         $useCase = new UpdateCategoriaUsecase($mockRepo);
         $response = $useCase->execute($input);
 
+        $mockRepo->shouldHaveReceived('update');
         $this->assertInstanceOf(UpdateCategoriaOutput::class, $response);
         $this->assertEquals($input->nome, $response->nome);
         $this->assertEquals($input->descricao, $response->descricao);
@@ -92,6 +93,7 @@ class UpdateCategoriaUsecaseTest extends TestCase
         $useCase = new UpdateCategoriaUsecase($mockRepo);
         $response = $useCase->execute($input);
 
+        $mockRepo->shouldHaveReceived('update');
         $this->assertInstanceOf(UpdateCategoriaOutput::class, $response);
         $this->assertEquals($response->nome, $input->nome);
         $this->assertEquals($response->descricao, $categoriaBD->descricao);
@@ -130,6 +132,7 @@ class UpdateCategoriaUsecaseTest extends TestCase
         $useCase = new UpdateCategoriaUsecase($mockRepo);
         $response = $useCase->execute($input);
 
+        $mockRepo->shouldHaveReceived('update');
         $this->assertInstanceOf(UpdateCategoriaOutput::class, $response);
         $this->assertEquals($response->nome, $categoriaBD->nome);
         $this->assertEquals($response->descricao, $input->descricao);

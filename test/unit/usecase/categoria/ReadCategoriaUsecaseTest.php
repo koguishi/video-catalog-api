@@ -42,6 +42,7 @@ class ReadCategoriaUsecaseTest extends TestCase
         $usecase = new ReadCategoriaUsecase($mockRepo);
         $response = $usecase->execute($input);
 
+        $mockRepo->shouldHaveReceived('read');
         $this->assertInstanceOf(ReadCategoriaOutput::class, $response);
         $this->assertEquals($response->id, $categoria->id());
         $this->assertEquals($response->nome, $categoria->nome);

@@ -43,6 +43,7 @@ class DeleteCategoriaUsecaseTest extends TestCase
         $usecase = new DeleteCategoriaUsecase($mockRepo);
         $response = $usecase->execute($input);
 
+        $mockRepo->shouldHaveReceived('delete');
         $this->assertInstanceOf(DeleteCategoriaOutput::class, $response);
         $this->assertTrue($response->sucesso);
     }
@@ -70,6 +71,7 @@ class DeleteCategoriaUsecaseTest extends TestCase
         $usecase = new DeleteCategoriaUsecase($mockRepo);
         $response = $usecase->execute($input);
 
+        $mockRepo->shouldHaveReceived('delete');
         $this->assertInstanceOf(DeleteCategoriaOutput::class, $response);
         $this->assertFalse($response->sucesso);
     }

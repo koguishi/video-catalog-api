@@ -22,20 +22,10 @@ class CreateCategoriaUsecaseTest extends TestCase
 
     public function testCreateCategoria()
     {
-        // $id = (string) Uuid::uuid4()->toString();
-        // $nome = 'categoria A';
-        // $descricao = 'descrição da categoria A';
-
         $categoria = new Categoria(
             nome: 'categoria A',
             descricao: 'descrição da categoria A',
         );
-        // var_dump($categoria);
-        // $mockCategoria = Mockery::mock(
-        //     Categoria::class,
-        //     [ $id, $nome , $descricao, $ativo ],
-        // );
-        // $mockCategoria->shouldReceive('id')->andReturn($id);
 
         /**
          * @var CategoriaRepositoryInterface|MockInterface $mockRepo
@@ -54,7 +44,8 @@ class CreateCategoriaUsecaseTest extends TestCase
 
         $usecase = new CreateCategoriaUsecase($mockRepo);
         $response = $usecase->execute($input);
-        // var_dump($response);
+
+        $mockRepo->shouldHaveReceived('create');
 
         $this->assertInstanceOf(CreateCategoriaOutput::class, $response);
         $this->assertEquals($response->id, $categoria->id());
@@ -62,8 +53,6 @@ class CreateCategoriaUsecaseTest extends TestCase
         $this->assertEquals($response->descricao, $categoria->descricao);
         $this->assertEquals($response->ativo, $categoria->ativo);
         $this->assertNotEmpty($response->criadoEm, $categoria->criadoEm());
-
-        // Mockery::close();
     }
 
     public function testCreateCategoriaSomenteNome()
@@ -88,6 +77,7 @@ class CreateCategoriaUsecaseTest extends TestCase
         $usecase = new CreateCategoriaUsecase($mockRepo);
         $response = $usecase->execute($input);
 
+        $mockRepo->shouldHaveReceived('create');
         $this->assertInstanceOf(CreateCategoriaOutput::class, $response);
         $this->assertEquals($categoria->id(), $response->id);
         $this->assertEquals($categoria->nome, $response->nome);
@@ -120,6 +110,7 @@ class CreateCategoriaUsecaseTest extends TestCase
         $usecase = new CreateCategoriaUsecase($mockRepo);
         $response = $usecase->execute($input);
 
+        $mockRepo->shouldHaveReceived('create');
         $this->assertInstanceOf(CreateCategoriaOutput::class, $response);
         $this->assertEquals($categoria->id(), $response->id);
         $this->assertEquals($categoria->nome, $response->nome);
