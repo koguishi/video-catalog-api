@@ -1,5 +1,3 @@
-version: '3'
-
 services:
 
   app:
@@ -7,7 +5,8 @@ services:
       container_name: video-catalog-api
       volumes:
           - .:/var/www
-          - ./.docker/php/custom.ini:/usr/local/etc/php/conf.d/custom.ini
+      extra_hosts:
+        - "host.docker.internal:host-gateway"
       networks:
           - video-catalog-network
 
