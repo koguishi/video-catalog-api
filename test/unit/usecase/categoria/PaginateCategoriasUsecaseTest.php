@@ -2,15 +2,11 @@
 
 namespace test\unit\usecase\categoria;
 
-use core\domain\entity\Categoria;
 use core\domain\repository\CategoriaRepositoryInterface;
 use core\domain\repository\PaginationInterface;
 use core\usecase\categoria\PaginateCategoriasInput;
 use core\usecase\categoria\PaginateCategoriasOutput;
 use core\usecase\categoria\PaginateCategoriasUsecase;
-use core\usecase\categoria\ReadAllCategoriasInput;
-use core\usecase\categoria\ReadAllCategoriasOutput;
-use core\usecase\categoria\ReadAllCategoriasUsecase;
 use Mockery;
 use Mockery\MockInterface;
 use PHPUnit\Framework\TestCase;
